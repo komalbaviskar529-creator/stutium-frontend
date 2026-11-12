@@ -10,7 +10,7 @@ const columns = [
 export function Footer() {
   return (
     <footer className="mt-16 bg-surface">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-6">
         {columns.map((col) => (
           <div key={col.title}>
             <h3 className="mb-3 text-sm font-bold">{col.title}</h3>
@@ -21,7 +21,7 @@ export function Footer() {
             </ul>
           </div>
         ))}
-        <div>
+        <div className="sm:col-span-2">
           <h3 className="mb-3 text-sm font-bold">Newsletter</h3>
           <div className="flex gap-2">
             <input
