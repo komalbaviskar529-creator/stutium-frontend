@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Badge } from "@/components/ui/Badge";
@@ -68,10 +67,10 @@ export default function StyleguidePage() {
       </Section>
 
       <Section title="Card">
-        <Card className="w-64 p-4">
+        <div className="w-64 rounded-lg border p-4">
           <h3 className="font-bold">Ceramic Mug</h3>
           <p className="text-sm text-muted">Card with padding and a border.</p>
-        </Card>
+        </div>
       </Section>
     </div>
   );
