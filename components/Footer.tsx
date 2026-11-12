@@ -37,4 +37,4 @@ export function Footer() {
       <p className="border-t border-line py-4 text-center text-xs text-muted">© Stutium</p>
     </footer>
   );
-}s
+}
