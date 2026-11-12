@@ -1,6 +1,5 @@
- import type { Metadata } from "next";
+  import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-// @ts-ignore Next.js processes global CSS imports at build time.
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { CategoryNav } from "@/components/CategoryNav";
