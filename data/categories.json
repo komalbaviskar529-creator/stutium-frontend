@@ -1,1 +1,34 @@
-[] 
+[
+  { "slug": "all", "name": "All Gifts", "subCategories": [] },
+  {
+    "slug": "corporate-gifts",
+    "name": "Corporate Gifts",
+    "subCategories": [
+      { "slug": "mugs", "name": "Mugs" },
+      { "slug": "pens", "name": "Pens" },
+      { "slug": "bottles", "name": "Bottles" },
+      { "slug": "gift-boxes", "name": "Gift Boxes" },
+      { "slug": "t-shirts", "name": "T-Shirts" }
+    ]
+  },
+  {
+    "slug": "calendars-diaries",
+    "name": "Calendars & Diaries",
+    "subCategories": [
+      { "slug": "wall-calendars", "name": "Wall Calendars" },
+      { "slug": "desk-calendars", "name": "Desk Calendars" },
+      { "slug": "diaries", "name": "Diaries" },
+      { "slug": "planners", "name": "Planners" }
+    ]
+  },
+  {
+    "slug": "print-on-demand",
+    "name": "Print on Demand",
+    "subCategories": [
+      { "slug": "posters", "name": "Posters" },
+      { "slug": "cards", "name": "Cards" },
+      { "slug": "stickers", "name": "Stickers" },
+      { "slug": "notebooks", "name": "Notebooks" }
+    ]
+  }
+]
