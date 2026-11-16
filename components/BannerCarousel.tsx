@@ -1,8 +1,9 @@
  "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { CalendarDays, ChevronLeft, ChevronRight, Gift, Printer } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 const slides = [
@@ -12,8 +13,9 @@ const slides = [
     text: "Bulk pricing for teams, clients and events.",
     href: "/category/corporate-gifts",
     cta: "Browse category",
-    icon: Gift,
-    bg: "from-[#4a3560] via-[#8a5a83] to-[#e9b99a]",
+    image: "/images/banners/banner-1.jpg",
+    alt: "A branded corporate gift box",
+    bg: "from-[#4a3560] to-[#e9b99a]",
   },
   {
     tag: "Calendars & Diaries",
@@ -21,8 +23,9 @@ const slides = [
     text: "Custom covers, sizes and binding options.",
     href: "/category/calendars-diaries",
     cta: "Browse category",
-    icon: CalendarDays,
-    bg: "from-[#134e4a] via-[#2a7f73] to-[#e9d8a6]",
+    image: "/images/banners/banner-2.jpg",
+    alt: "A desk calendar and diary on a desk",
+    bg: "from-[#134e4a] to-[#e9d8a6]",
   },
   {
     tag: "Print on Demand",
@@ -30,8 +33,9 @@ const slides = [
     text: "Posters, cards, stickers and notebooks.",
     href: "/category/print-on-demand",
     cta: "Browse category",
-    icon: Printer,
-    bg: "from-[#7c2d12] via-[#c2410c] to-[#fcd9a8]",
+    image: "/images/banners/banner-3.jpg",
+    alt: "Custom printed posters",
+    bg: "from-[#7c2d12] to-[#fcd9a8]",
   },
 ];
 
@@ -45,38 +49,45 @@ export function BannerCarousel() {
 
   const go = (n: number) => setIndex((n + slides.length) % slides.length);
   const slide = slides[index];
-  const Icon = slide.icon;
   const arrow =
-    "absolute top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-ink shadow-lg hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-white";
+    "absolute top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-ink shadow-lg hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-white";
 
   return (
     <section
       aria-roledescription="carousel"
       aria-label="Featured offers"
-      className={cn("relative overflow-hidden rounded-3xl bg-linear-to-br shadow-xl", slide.bg)}
+      className={cn("relative min-h-[22rem] overflow-hidden rounded-3xl bg-linear-to-br shadow-xl md:min-h-[26rem]", slide.bg)}
     >
+      {slides.map((s, i) => (
+        <Image
+          key={s.image}
+          src={s.image}
+          alt={s.alt}
+          fill
+          priority={i === 0}
+          sizes="(min-width: 1280px) 1216px, 100vw"
+          aria-hidden={i !== index}
+          className={cn("object-cover transition-opacity duration-700", i === index ? "opacity-100" : "opacity-0")}
+        />
+      ))}
+
+      <div className="absolute inset-0 z-10 bg-linear-to-r from-black/75 via-black/50 to-black/10" />
+
       <div
         key={index}
-        className="animate-fade-up grid min-h-[22rem] items-center gap-6 px-8 py-14 sm:px-20 md:grid-cols-2"
+        className="animate-fade-up relative z-10 flex min-h-[22rem] max-w-2xl flex-col items-start justify-center px-8 py-14 sm:px-20 md:min-h-[26rem]"
       >
-        <div>
-          <span className="inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-            {slide.tag}
-          </span>
-          <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-white md:text-5xl">{slide.title}</h2>
-          <p className="mt-3 text-lg text-white/90">{slide.text}</p>
-          <Link
-            href={slide.href}
-            className="mt-7 inline-flex h-12 items-center rounded-xl bg-white px-6 font-semibold text-brand-700 shadow-lg transition hover:bg-brand-50"
-          >
-            {slide.cta}
-          </Link>
-        </div>
-        <div aria-hidden className="hidden items-center justify-center md:flex">
-          <div className="flex size-64 items-center justify-center rounded-full bg-white/15 ring-8 ring-white/10">
-            <Icon className="size-28 text-white" />
-          </div>
-        </div>
+        <span className="inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur">
+          {slide.tag}
+        </span>
+        <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-white md:text-5xl">{slide.title}</h2>
+        <p className="mt-3 text-lg text-white/90">{slide.text}</p>
+        <Link
+          href={slide.href}
+          className="mt-7 inline-flex h-12 items-center rounded-xl bg-white px-6 font-semibold text-brand-700 shadow-lg transition hover:bg-brand-50"
+        >
+          {slide.cta}
+        </Link>
       </div>
 
       <button type="button" aria-label="Previous slide" onClick={() => go(index - 1)} className={cn(arrow, "left-3")}>
@@ -86,7 +97,7 @@ export function BannerCarousel() {
         <ChevronRight className="size-6" aria-hidden />
       </button>
 
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2">
+      <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
         {slides.map((s, i) => (
           <button
             key={s.title}
