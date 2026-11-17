@@ -11,3 +11,5 @@ export const getCategories = () => categories;
 export const getCategory = (slug: string) => categories.find((c) => c.slug === slug);
 export const getProductsByCategory = (slug: string) =>
   slug === "all" ? products : products.filter((p) => p.category === slug);
+
+export const getProductBySlug = (slug: string) => products.find((p) => p.slug === slug);

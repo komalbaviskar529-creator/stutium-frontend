@@ -1,5 +1,6 @@
  import Link from "next/link";
-import { Bell, MapPin, Search, ShoppingBag, User } from "lucide-react";
+import { Bell, Search, ShoppingBag, User } from "lucide-react";
+import { PincodeButton } from "@/components/PincodeButton";
 
 const iconLink =
   "flex flex-col items-center gap-0.5 text-xs font-medium hover:text-brand-600 focus-visible:outline-2 focus-visible:outline-brand-600";
@@ -12,13 +13,7 @@ export function Header() {
           Stutium
         </Link>
 
-        <button
-          type="button"
-          className="flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium hover:border-brand-600"
-        >
-          <MapPin className="size-4 text-brand-600" aria-hidden />
-          Deliver to: <span className="font-bold">Pincode</span>
-        </button>
+        <PincodeButton />
 
         <div className="relative order-last w-full md:order-none md:w-auto md:flex-1">
           <Search className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted" aria-hidden />
