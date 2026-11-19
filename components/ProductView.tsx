@@ -25,7 +25,7 @@ export function ProductView({ product }: { product: Product }) {
   return (
     <div className="grid gap-10 lg:grid-cols-2">
       <div className="self-start lg:sticky lg:top-28">
-        <Gallery name={product.name} />
+        <Gallery name={product.name} slug={product.slug} />
       </div>
 
       <div className="space-y-6">

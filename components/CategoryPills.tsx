@@ -1,8 +1,9 @@
-import Link from "next/link";
+ import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { gradientAt } from "@/lib/gradients";
+import { SmartImage } from "@/components/SmartImage";
 
-export type Pill = { label: string; href: string; active?: boolean };
+export type Pill = { label: string; href: string; active?: boolean; image?: string };
 
 export function CategoryPills({ items }: { items: Pill[] }) {
   return (
@@ -19,11 +20,11 @@ export function CategoryPills({ items }: { items: Pill[] }) {
           >
             <span
               className={cn(
-                "flex size-9 items-center justify-center rounded-full bg-linear-to-br font-bold text-white",
+                "relative flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-linear-to-br font-bold text-white",
                 gradientAt(i)
               )}
             >
-              {p.label.slice(0, 1)}
+              {p.image ? <SmartImage src={p.image} alt="" sizes="40px" seed={p.label} /> : p.label.slice(0, 1)}
             </span>
             {p.label}
           </Link>
