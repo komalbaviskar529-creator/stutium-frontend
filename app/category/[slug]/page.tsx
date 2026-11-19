@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -8,7 +8,9 @@ import { CategoryPills, type Pill } from "@/components/CategoryPills";
 import { FilterSidebar } from "@/components/FilterSidebar";
 import { Pagination } from "@/components/Pagination";
 import { ProductCard } from "@/components/ProductCard";
+import { SmartImage } from "@/components/SmartImage";
 import { SortSelect } from "@/components/SortSelect";
+import { CATEGORY_IMAGE, SUB_CATEGORY_IMAGE } from "@/lib/images";
 import {
   PAGE_SIZE,
   applyFilters,
@@ -55,27 +57,43 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     slug === "all"
       ? getCategories()
           .filter((c) => c.slug !== "all")
-          .map((c) => ({ label: c.name, href: `/category/${c.slug}` }))
+          .map((c) => ({ label: c.name, href: `/category/${c.slug}`, image: CATEGORY_IMAGE[c.slug] }))
       : [
-          { label: "All", href: buildHref(path, filters, { sub: undefined, page: undefined }), active: !filters.sub },
+          {
+            label: "All",
+            href: buildHref(path, filters, { sub: undefined, page: undefined }),
+            active: !filters.sub,
+            image: CATEGORY_IMAGE[slug],
+          },
           ...category.subCategories.map((s) => ({
             label: s.name,
             href: buildHref(path, filters, { sub: s.slug, page: undefined }),
             active: filters.sub === s.slug,
+            image: SUB_CATEGORY_IMAGE[s.slug],
           })),
         ];
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
-      <section className="relative overflow-hidden rounded-3xl bg-linear-to-r from-[#4a3560] via-[#8a5a83] to-[#e9b99a] px-8 py-10 text-white shadow-lg sm:px-12">
-        <nav aria-label="Breadcrumb" className="text-sm text-white/80">
-          <Link href="/" className="hover:underline">
-            Home
-          </Link>{" "}
-          › {category.name}
-        </nav>
-        <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{category.name}</h1>
-        <p className="mt-2 max-w-xl text-white/90">{BLURBS[slug] ?? BLURBS.all}</p>
+      <section className="relative overflow-hidden rounded-3xl bg-linear-to-r from-[#4a3560] to-[#e9b99a] px-8 py-12 text-white shadow-lg sm:px-12">
+        <SmartImage
+          src={CATEGORY_IMAGE[slug] ?? CATEGORY_IMAGE.all}
+          alt=""
+          sizes="1216px"
+          seed={slug}
+          priority
+        />
+        <div aria-hidden className="absolute inset-0 bg-linear-to-r from-black/75 via-black/50 to-black/10" />
+        <div className="relative">
+          <nav aria-label="Breadcrumb" className="text-sm text-white/80">
+            <Link href="/" className="hover:underline">
+              Home
+            </Link>{" "}
+            › {category.name}
+          </nav>
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{category.name}</h1>
+          <p className="mt-2 max-w-xl text-white/90">{BLURBS[slug] ?? BLURBS.all}</p>
+        </div>
       </section>
 
       <CategoryPills items={pills} />

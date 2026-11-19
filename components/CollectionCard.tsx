@@ -1,24 +1,23 @@
-import Link from "next/link";
-import type { LucideIcon } from "lucide-react";
-import { cn } from "@/lib/cn";
+ import Link from "next/link";
+import { SmartImage } from "@/components/SmartImage";
 
-type Props = { label: string; href: string; icon: LucideIcon; gradient: string };
+type Props = { label: string; href: string; image: string };
 
-export function CollectionCard({ label, href, icon: Icon, gradient }: Props) {
+export function CollectionCard({ label, href, image }: Props) {
   return (
     <Link
       href={href}
-      className="group flex flex-col items-center gap-3 rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-line transition hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-brand-600"
+      className="group relative block aspect-square overflow-hidden rounded-2xl shadow-sm ring-1 ring-line transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-brand-600"
     >
-      <span
-        className={cn(
-          "flex aspect-square w-full items-center justify-center rounded-xl bg-linear-to-br",
-          gradient
-        )}
-      >
-        <Icon className="size-10 text-white transition group-hover:scale-110" aria-hidden />
-      </span>
-      <span className="font-semibold">{label}</span>
+      <SmartImage
+        src={image}
+        alt={label}
+        sizes="(min-width: 1024px) 200px, 50vw"
+        seed={label}
+        className="transition duration-500 group-hover:scale-110"
+      />
+      <span aria-hidden className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+      <span className="absolute inset-x-0 bottom-0 p-4 text-base font-bold text-white">{label}</span>
     </Link>
   );
 }

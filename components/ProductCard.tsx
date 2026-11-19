@@ -2,8 +2,9 @@
 import { Star, Truck } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { rupees } from "@/lib/format";
+import { productImage } from "@/lib/images";
 import { Badge } from "@/components/ui/Badge";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
+import { SmartImage } from "@/components/SmartImage";
 
 export function ProductCard({ product }: { product: Product }) {
   const off = Math.round((1 - product.price / product.mrp) * 100);
@@ -14,8 +15,14 @@ export function ProductCard({ product }: { product: Product }) {
       className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
     >
       <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-line transition group-hover:-translate-y-1 group-hover:shadow-xl">
-        <div className="relative">
-          <ImagePlaceholder label={product.name} className="aspect-[4/3]" />
+        <div className="relative aspect-[4/3] overflow-hidden">
+          <SmartImage
+            src={productImage(product.slug)}
+            alt={product.name}
+            sizes="(min-width: 1024px) 25vw, 50vw"
+            seed={product.slug}
+            className="transition duration-500 group-hover:scale-105"
+          />
           <span className="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-brand-700 shadow">
             {off}% OFF
           </span>
