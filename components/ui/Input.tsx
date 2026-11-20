@@ -1,7 +1,7 @@
-import type { InputHTMLAttributes } from "react";
+ import type { ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+type Props = ComponentProps<"input"> & {
   label?: string;
   error?: string;
 };

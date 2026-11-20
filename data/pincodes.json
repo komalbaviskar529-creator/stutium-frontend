@@ -1,1 +1,21 @@
-[] 
+[
+  { "pincode": "400001", "city": "Mumbai", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "400051", "city": "Mumbai", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "411001", "city": "Pune", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "411004", "city": "Pune", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "411014", "city": "Pune", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "411028", "city": "Pune", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "411038", "city": "Pune", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "411045", "city": "Pune", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "411057", "city": "Pune", "state": "Maharashtra", "extraDays": 0 },
+  { "pincode": "422001", "city": "Nashik", "state": "Maharashtra", "extraDays": 1 },
+  { "pincode": "440001", "city": "Nagpur", "state": "Maharashtra", "extraDays": 1 },
+  { "pincode": "110001", "city": "New Delhi", "state": "Delhi", "extraDays": 0 },
+  { "pincode": "560001", "city": "Bengaluru", "state": "Karnataka", "extraDays": 0 },
+  { "pincode": "500001", "city": "Hyderabad", "state": "Telangana", "extraDays": 0 },
+  { "pincode": "600001", "city": "Chennai", "state": "Tamil Nadu", "extraDays": 1 },
+  { "pincode": "700001", "city": "Kolkata", "state": "West Bengal", "extraDays": 2 },
+  { "pincode": "380001", "city": "Ahmedabad", "state": "Gujarat", "extraDays": 1 },
+  { "pincode": "302001", "city": "Jaipur", "state": "Rajasthan", "extraDays": 2 },
+  { "pincode": "226001", "city": "Lucknow", "state": "Uttar Pradesh", "extraDays": 2 }
+]

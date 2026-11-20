@@ -58,3 +58,6 @@ export function getDeliverySlots(info: PincodeInfo, productDays: number, today =
   }
   return slots;
 }
+
+export const slotText = (s: Slot) =>
+  `${s.label}${s.dateLabel && s.dateLabel !== "Standard" ? ` (${s.dateLabel})` : ""}`;
