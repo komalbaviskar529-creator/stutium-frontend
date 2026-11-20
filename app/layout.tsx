@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { CategoryNav } from "@/components/CategoryNav";
 import { Footer } from "@/components/Footer";
+import { CartProvider } from "@/lib/cart-context";
 import { PincodeProvider } from "@/lib/pincode-context";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
@@ -19,10 +20,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${jakarta.variable} ${playfair.variable}`}>
       <body className="min-h-screen bg-surface font-sans antialiased">
         <PincodeProvider>
-          <Header />
-          <CategoryNav />
-          <main>{children}</main>
-          <Footer />
+          <CartProvider>
+            <Header />
+            <CategoryNav />
+            <main>{children}</main>
+            <Footer />
+          </CartProvider>
         </PincodeProvider>
       </body>
     </html>
