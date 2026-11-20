@@ -1,7 +1,7 @@
 import type { Totals } from "@/lib/cart-types";
 import type { AddressValues } from "@/lib/validation";
 
-export type OrderLine = { name: string; variant: string; qty: number; unit: number; total: number };
+ export type OrderLine = { name: string; variant: string; qty: number; unit: number; total: number; extras?: string };
 
 export type Order = {
   id: string;

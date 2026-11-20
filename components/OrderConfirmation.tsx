@@ -82,10 +82,11 @@ export function OrderConfirmation({ id }: { id: string }) {
         <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-line">
           <h2 className="mb-4 text-lg font-extrabold">Order summary</h2>
           <ul className="mb-4 space-y-3 text-sm">
-            {order.lines.map((l) => (
-              <li key={`${l.name}-${l.variant}-${l.qty}`} className="flex justify-between gap-3">
-                <span>
+                         {order.lines.map((l, i) => (
+              <li key={`${i}-${l.name}-${l.variant}-${l.qty}`} className="flex justify-between gap-3">
+                                <span>
                   {l.name} <span className="text-muted">({l.variant}) × {l.qty}</span>
+                  {l.extras && <span className="block text-xs text-muted">{l.extras}</span>}
                 </span>
                 <span className="font-semibold">{rupees(l.total)}</span>
               </li>

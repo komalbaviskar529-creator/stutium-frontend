@@ -15,7 +15,7 @@ import { getDeliverySlots, lookupPincode, slotText, type Slot } from "@/lib/deli
 import { rupees, rupeesExact } from "@/lib/format";
 import { PAYMENT_LABELS, newOrderId, saveOrder, type Order } from "@/lib/orders";
 import { usePincode } from "@/lib/pincode-context";
-import { computeTotals, resolveLines } from "@/lib/pricing";
+ import { ADD_ONS, computeTotals, resolveLines } from "@/lib/pricing";
 import type { AddressValues } from "@/lib/validation";
 
 const PAYMENTS: { id: string; note: string; icon: LucideIcon }[] = [
@@ -66,6 +66,7 @@ export function CheckoutView() {
         qty: l.item.qty,
         unit: l.unit,
         total: l.total,
+                extras: ADD_ONS.filter((a) => l.item.addOns.includes(a.id)).map((a) => a.label).join(", "),
       })),
       totals,
       coupon,
