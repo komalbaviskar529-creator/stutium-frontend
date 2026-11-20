@@ -1,31 +1,78 @@
-"use client";
+ "use client";
 
-import { useState } from "react";
-import { Star, Truck } from "lucide-react";
-import type { Product } from "@/lib/types";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Check, ShoppingBag, Star, Truck, Zap } from "lucide-react";
+import type { NewCartItem } from "@/lib/cart-types";
 import type { Slot } from "@/lib/delivery";
+import type { Product } from "@/lib/types";
+import { useCart } from "@/lib/cart-context";
 import { rupees } from "@/lib/format";
-import { subtotal, unitPrice, variantMultiplier } from "@/lib/pricing";
-import { Badge } from "@/components/ui/Badge";
+import { addOnsPerUnit, unitPrice, variantMultiplier } from "@/lib/pricing";
+import { AddOns } from "@/components/AddOns";
 import { Gallery } from "@/components/Gallery";
+import { LogoOverlay } from "@/components/LogoOverlay";
 import { PincodeCheck } from "@/components/PincodeCheck";
 import { PriceTiers } from "@/components/PriceTiers";
 import { QuantityStepper } from "@/components/QuantityStepper";
+import { UploadPreview, type Artwork } from "@/components/UploadPreview";
 import { VariantSelector } from "@/components/VariantSelector";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 
 export function ProductView({ product }: { product: Product }) {
+  const router = useRouter();
+  const { addItem } = useCart();
+
   const [variant, setVariant] = useState(0);
   const [qty, setQty] = useState(product.moq);
   const [slot, setSlot] = useState<Slot | null>(null);
+  const [artwork, setArtwork] = useState<Artwork | null>(null);
+  const [text, setText] = useState("");
+  const [addOns, setAddOns] = useState<string[]>([]);
+  const [added, setAdded] = useState(false);
+
+  useEffect(() => {
+    setAdded(false);
+  }, [variant, qty, addOns, text, artwork]);
 
   const unit = unitPrice(product, variant, qty);
+  const extras = addOnsPerUnit(addOns);
+  const perUnit = unit + extras;
+  const total = perUnit * qty;
   const mrp = Math.round(product.mrp * variantMultiplier(variant));
   const off = Math.max(0, Math.round((1 - unit / mrp) * 100));
+
+  const toggleAddOn = (id: string) =>
+    setAddOns((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+
+  function buildItem(): NewCartItem {
+    return {
+      slug: product.slug,
+      variantIndex: variant,
+      qty,
+      addOns: [...addOns].sort(),
+      text: text.trim(),
+      artwork: artwork?.dataUrl ?? "",
+      artworkName: artwork?.name ?? "",
+    };
+  }
+
+  function add() {
+    addItem(buildItem());
+    setAdded(true);
+  }
+
+  function buyNow() {
+    if (!added) addItem(buildItem());
+    router.push("/checkout");
+  }
 
   return (
     <div className="grid gap-10 lg:grid-cols-2">
       <div className="self-start lg:sticky lg:top-28">
-        <Gallery name={product.name} slug={product.slug} />
+        <Gallery name={product.name} slug={product.slug} overlay={<LogoOverlay artwork={artwork} text={text} />} />
       </div>
 
       <div className="space-y-6">
@@ -54,14 +101,42 @@ export function ProductView({ product }: { product: Product }) {
         <QuantityStepper value={qty} min={product.moq} onChange={setQty} />
         <PriceTiers product={product} variantIndex={variant} qty={qty} onSelect={setQty} />
 
-        <div className="flex items-center justify-between rounded-2xl bg-brand-50 p-5" aria-live="polite">
-          <p className="text-sm font-semibold">
-            Subtotal ({qty} × {rupees(unit)})
-          </p>
-          <p className="text-2xl font-extrabold text-brand-700">{rupees(subtotal(product, variant, qty))}</p>
-        </div>
-
         <PincodeCheck deliveryDays={product.deliveryDays} slot={slot} onSlot={setSlot} />
+
+        <UploadPreview artwork={artwork} text={text} onArtwork={setArtwork} onText={setText} />
+        <AddOns selected={addOns} onToggle={toggleAddOn} />
+
+        <div className="space-y-4 rounded-2xl bg-brand-50 p-5">
+          <div className="flex items-end justify-between gap-4" aria-live="polite">
+            <div>
+              <p className="text-sm font-semibold">Total (before GST)</p>
+              <p className="text-xs text-muted">
+                {qty} × {rupees(perUnit)}
+                {extras > 0 ? ` (includes ${rupees(extras)} add-ons per unit)` : ""}
+              </p>
+            </div>
+            <p className="text-3xl font-extrabold text-brand-700">{rupees(total)}</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Button size="lg" onClick={add} className="gap-2">
+              <ShoppingBag className="size-5" aria-hidden />
+              Add to cart
+            </Button>
+            <Button size="lg" variant="secondary" onClick={buyNow} className="gap-2">
+              <Zap className="size-5" aria-hidden />
+              Buy now
+            </Button>
+          </div>
+          {added && (
+            <p role="status" className="flex items-center gap-2 text-sm font-semibold text-green-700">
+              <Check className="size-4" aria-hidden />
+              Added to cart.
+              <Link href="/cart" className="underline">
+                View cart
+              </Link>
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

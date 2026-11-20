@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ProductCard } from "@/components/ProductCard";
 import { ProductView } from "@/components/ProductView";
 import { PRODUCT_COPY } from "@/lib/product-copy";
-import { getAllProducts, getCategory, getProductBySlug } from "@/lib/products";
+import { getAllProducts, getCategory, getProductBySlug, getRelatedProducts } from "@/lib/products";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -40,6 +41,7 @@ export default async function ProductPage({ params }: Props) {
 
   const category = getCategory(product.category);
   const copy = PRODUCT_COPY[product.category] ?? PRODUCT_COPY["corporate-gifts"];
+  const related = getRelatedProducts(product, 4);
 
   return (
     <div className="mx-auto max-w-7xl space-y-12 px-4 py-8">
@@ -57,6 +59,17 @@ export default async function ProductPage({ params }: Props) {
         <InfoBox title="Product details" items={copy.details} />
         <InfoBox title="Care instructions" items={copy.care} />
       </div>
+
+      <section aria-labelledby="related">
+        <h2 id="related" className="mb-6 text-2xl font-extrabold tracking-tight">
+          You may also like
+        </h2>
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+          {related.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
