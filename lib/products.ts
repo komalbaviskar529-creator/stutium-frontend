@@ -13,3 +13,9 @@ export const getProductsByCategory = (slug: string) =>
   slug === "all" ? products : products.filter((p) => p.category === slug);
 
 export const getProductBySlug = (slug: string) => products.find((p) => p.slug === slug);
+
+export function getRelatedProducts(product: Product, n = 4): Product[] {
+  const same = products.filter((p) => p.category === product.category && p.id !== product.id);
+  const others = products.filter((p) => p.category !== product.category);
+  return [...same, ...others].slice(0, n);
+}

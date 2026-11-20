@@ -1,5 +1,6 @@
  import Link from "next/link";
-import { Bell, Search, ShoppingBag, User } from "lucide-react";
+import { Bell, Search, User } from "lucide-react";
+import { CartLink } from "@/components/CartLink";
 import { PincodeButton } from "@/components/PincodeButton";
 
 const iconLink =
@@ -34,13 +35,7 @@ export function Header() {
             <User className="size-6" aria-hidden />
             Login
           </button>
-          <Link href="/cart" aria-label="Cart, 0 items" className={`${iconLink} relative`}>
-            <ShoppingBag className="size-6" aria-hidden />
-            Cart
-            <span className="absolute -right-2.5 -top-1 flex size-5 items-center justify-center rounded-full bg-brand-600 text-[11px] font-bold text-white">
-              0
-            </span>
-          </Link>
+          <CartLink />
         </nav>
       </div>
     </header>
