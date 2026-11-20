@@ -1,6 +1,6 @@
  "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { productImage } from "@/lib/images";
 import { SmartImage } from "@/components/SmartImage";
@@ -12,7 +12,9 @@ const VIEWS = [
   { label: "Bottom detail", scale: 2, origin: "70% 80%" },
 ];
 
-export function Gallery({ name, slug }: { name: string; slug: string }) {
+type Props = { name: string; slug: string; overlay?: ReactNode };
+
+export function Gallery({ name, slug, overlay }: Props) {
   const [active, setActive] = useState(0);
   const src = productImage(slug);
   const view = VIEWS[active];
@@ -29,6 +31,7 @@ export function Gallery({ name, slug }: { name: string; slug: string }) {
           className="transition duration-300"
           style={{ transform: `scale(${view.scale})`, transformOrigin: view.origin }}
         />
+        {overlay}
       </div>
       <ul className="grid grid-cols-4 gap-3">
         {VIEWS.map((v, i) => (
