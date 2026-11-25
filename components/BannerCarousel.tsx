@@ -41,28 +41,22 @@ const slides = [
 
 export function BannerCarousel() {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = setInterval(() => setIndex((n) => (n + 1) % slides.length), 5000);
     return () => clearInterval(timer);
-  }, [paused]);
+  }, []);
 
   const go = (n: number) => setIndex((n + slides.length) % slides.length);
   const slide = slides[index];
   const arrow =
-    "absolute top-1/2 z-20 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-ink shadow-md hover:bg-white focus-visible:outline-2 focus-visible:outline-white";
+    "absolute top-1/2 z-20 flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-ink shadow-lg hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-white";
 
   return (
     <section
       aria-roledescription="carousel"
       aria-label="Featured offers"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-      className={cn("relative h-64 overflow-hidden rounded-2xl bg-linear-to-br shadow-md sm:h-72 lg:h-80", slide.bg)}
+      className={cn("relative min-h-[22rem] overflow-hidden rounded-3xl bg-linear-to-br shadow-xl md:min-h-[26rem]", slide.bg)}
     >
       {slides.map((s, i) => (
         <Image
@@ -77,33 +71,33 @@ export function BannerCarousel() {
         />
       ))}
 
-      <div className="absolute inset-0 z-10 bg-linear-to-r from-black/75 via-black/45 to-black/5" />
+      <div className="absolute inset-0 z-10 bg-linear-to-r from-black/75 via-black/50 to-black/10" />
 
       <div
         key={index}
-        className="animate-fade-up relative z-10 flex h-full max-w-xl flex-col items-start justify-center px-12 sm:px-16"
+        className="animate-fade-up relative z-10 flex min-h-[22rem] max-w-2xl flex-col items-start justify-center px-8 py-14 sm:px-20 md:min-h-[26rem]"
       >
         <span className="inline-flex rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur">
           {slide.tag}
         </span>
-        <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-4xl">{slide.title}</h2>
-        <p className="mt-2 text-sm text-white/90 sm:text-base">{slide.text}</p>
+        <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-white md:text-5xl">{slide.title}</h2>
+        <p className="mt-3 text-lg text-white/90">{slide.text}</p>
         <Link
           href={slide.href}
-          className="mt-4 inline-flex h-10 items-center rounded-lg bg-white px-5 text-sm font-semibold text-brand-700 shadow-md transition hover:bg-brand-50"
+          className="mt-7 inline-flex h-12 items-center rounded-xl bg-white px-6 font-semibold text-brand-700 shadow-lg transition hover:bg-brand-50"
         >
           {slide.cta}
         </Link>
       </div>
 
-      <button type="button" aria-label="Previous slide" onClick={() => go(index - 1)} className={cn(arrow, "left-2")}>
-        <ChevronLeft className="size-5" aria-hidden />
+      <button type="button" aria-label="Previous slide" onClick={() => go(index - 1)} className={cn(arrow, "left-3")}>
+        <ChevronLeft className="size-6" aria-hidden />
       </button>
-      <button type="button" aria-label="Next slide" onClick={() => go(index + 1)} className={cn(arrow, "right-2")}>
-        <ChevronRight className="size-5" aria-hidden />
+      <button type="button" aria-label="Next slide" onClick={() => go(index + 1)} className={cn(arrow, "right-3")}>
+        <ChevronRight className="size-6" aria-hidden />
       </button>
 
-      <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
+      <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
         {slides.map((s, i) => (
           <button
             key={s.title}
@@ -111,7 +105,7 @@ export function BannerCarousel() {
             aria-label={`Go to slide ${i + 1}`}
             aria-current={i === index}
             onClick={() => setIndex(i)}
-            className={cn("h-2 rounded-full transition-all", i === index ? "w-6 bg-white" : "w-2 bg-white/50")}
+            className={cn("h-2.5 rounded-full transition-all", i === index ? "w-7 bg-white" : "w-2.5 bg-white/50")}
           />
         ))}
       </div>
