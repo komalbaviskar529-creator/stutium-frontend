@@ -9,20 +9,20 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="mt-20 bg-ink text-white">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-6">
+    <footer className="mt-12 bg-ink text-white sm:mt-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:gap-8 sm:py-12 lg:grid-cols-6">
         {columns.map((col) => (
           <div key={col.title}>
-            <h3 className="mb-4 text-sm font-bold uppercase tracking-wide">{col.title}</h3>
-            <ul className="space-y-2 text-sm text-white/70">
+            <h3 className="mb-3 text-xs font-bold uppercase tracking-wide sm:mb-4 sm:text-sm">{col.title}</h3>
+            <ul className="space-y-1.5 text-sm text-white/70 sm:space-y-2">
               {col.links.map((l) => (
                 <li key={l}>{l}</li>
               ))}
             </ul>
           </div>
         ))}
-        <div className="sm:col-span-2">
-          <h3 className="mb-4 text-sm font-bold uppercase tracking-wide">Newsletter</h3>
+        <div className="col-span-2">
+          <h3 className="mb-3 text-xs font-bold uppercase tracking-wide sm:mb-4 sm:text-sm">Newsletter</h3>
           <p className="mb-3 text-sm text-white/70">Offers and gifting ideas in your inbox.</p>
           <div className="flex gap-2">
             <input
@@ -35,7 +35,7 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <p className="border-t border-white/10 py-5 text-center text-xs text-white/60">© Stutium</p>
+      <p className="border-t border-white/10 py-4 text-center text-xs text-white/60 sm:py-5">© Stutium</p>
     </footer>
   );
 }

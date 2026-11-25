@@ -81,7 +81,7 @@ export function ProductView({ product }: { product: Product }) {
             <Truck className="size-3.5" aria-hidden />
             {product.delivery}
           </Badge>
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">{product.name}</h1>
+                     <h1 className="mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">{product.name}</h1>
           <p className="mt-2 flex items-center gap-1 text-sm text-muted">
             <Star className="size-4 fill-amber-400 text-amber-400" aria-hidden />
             <span className="font-semibold text-ink">{product.rating}</span>({product.reviews} reviews)
@@ -90,7 +90,7 @@ export function ProductView({ product }: { product: Product }) {
 
         <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line" aria-live="polite">
           <p className="flex flex-wrap items-baseline gap-3">
-            <span className="text-4xl font-extrabold">{rupees(unit)}</span>
+                         <span className="text-3xl font-extrabold sm:text-4xl">{rupees(unit)}</span>
             <span className="text-lg text-muted line-through">{rupees(mrp)}</span>
             <span className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-bold text-brand-700">{off}% OFF</span>
           </p>
@@ -117,7 +117,7 @@ export function ProductView({ product }: { product: Product }) {
             </div>
             <p className="text-3xl font-extrabold text-brand-700">{rupees(total)}</p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
+                   <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-3 border-t border-line bg-white p-3 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] lg:static lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
             <Button size="lg" onClick={add} className="gap-2">
               <ShoppingBag className="size-5" aria-hidden />
               Add to cart

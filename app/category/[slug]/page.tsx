@@ -74,8 +74,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
         ];
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
-      <section className="relative overflow-hidden rounded-3xl bg-linear-to-r from-[#4a3560] to-[#e9b99a] px-8 py-12 text-white shadow-lg sm:px-12">
+        <div className="mx-auto max-w-7xl space-y-5 px-4 py-4 sm:space-y-8 sm:py-8">
+      <section className="relative overflow-hidden rounded-3xl bg-linear-to-r from-[#4a3560] to-[#e9b99a] px-5 py-6 text-white shadow-lg sm:px-12 sm:py-12">
         <SmartImage
           src={CATEGORY_IMAGE[slug] ?? CATEGORY_IMAGE.all}
           alt=""
@@ -91,7 +91,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             </Link>{" "}
             › {category.name}
           </nav>
-          <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{category.name}</h1>
+             <h1 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl"></h1>
           <p className="mt-2 max-w-xl text-white/90">{BLURBS[slug] ?? BLURBS.all}</p>
         </div>
       </section>
@@ -143,7 +143,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4">
+            <div className=" grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4">
               {items.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}
