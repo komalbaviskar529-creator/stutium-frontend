@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useState, type FormEvent } from "react";
 import { MapPin } from "lucide-react";
@@ -29,17 +29,18 @@ export function PincodeButton() {
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium hover:border-brand-600 focus-visible:outline-2 focus-visible:outline-brand-600"
+        className="flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1.5 text-xs font-medium hover:border-brand-600 focus-visible:outline-2 focus-visible:outline-brand-600 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm"
       >
         <MapPin className="size-4 text-brand-600" aria-hidden />
-        Deliver to: <span className="font-bold">{pincode || "Pincode"}</span>
+        <span className="hidden sm:inline">Deliver to:</span>
+        <span className="font-bold">{pincode || "Pincode"}</span>
       </button>
 
       {open && (
         <div
           role="dialog"
           aria-label="Choose delivery pincode"
-          className="absolute left-0 top-full z-50 mt-2 w-72 rounded-2xl bg-white p-4 shadow-xl ring-1 ring-line"
+          className="fixed inset-x-4 top-28 z-50 rounded-2xl bg-white p-4 shadow-xl ring-1 ring-line sm:absolute sm:inset-x-auto sm:left-0 sm:top-full sm:mt-2 sm:w-72"
         >
           <form onSubmit={apply} className="space-y-3">
             <Input
