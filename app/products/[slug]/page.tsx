@@ -44,7 +44,7 @@ export default async function ProductPage({ params }: Props) {
   const related = getRelatedProducts(product, 4);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-12 px-4 py-8">
+        <div className="mx-auto max-w-7xl space-y-8 px-4 pb-28 pt-4 sm:space-y-12 sm:pt-8 lg:pb-8">
       <nav aria-label="Breadcrumb" className="text-sm text-muted">
         <Link href="/" className="hover:underline">Home</Link> ›{" "}
         <Link href={`/category/${product.category}`} className="hover:underline">
