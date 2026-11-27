@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
 import { CheckCircle2, MapPin, XCircle } from "lucide-react";
@@ -46,14 +46,14 @@ export function PincodeCheck({ deliveryDays, slot, onSlot }: Props) {
   }
 
   return (
-    <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line">
+    <div className="min-w-0 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:p-5">
       <h2 className="mb-3 flex items-center gap-2 font-bold">
         <MapPin className="size-5 text-brand-600" aria-hidden />
         Check delivery
       </h2>
 
       <form onSubmit={check} className="flex items-start gap-2">
-        <div className="flex-1">
+        <div className="min-w-0 flex-1">
           <Input
             name="pincode"
             aria-label="Delivery pincode"
@@ -65,7 +65,7 @@ export function PincodeCheck({ deliveryDays, slot, onSlot }: Props) {
             error={checked !== null && !valid ? INVALID_MESSAGE : undefined}
           />
         </div>
-        <Button type="submit" size="lg" className="h-11">
+        <Button type="submit" size="lg" className="h-11 shrink-0 px-4">
           Check
         </Button>
       </form>
@@ -80,7 +80,7 @@ export function PincodeCheck({ deliveryDays, slot, onSlot }: Props) {
       {info && (
         <div className="mt-4 space-y-3">
           <p className="flex items-center gap-2 text-sm font-semibold text-green-700">
-            <CheckCircle2 className="size-4" aria-hidden />
+            <CheckCircle2 className="size-4 shrink-0" aria-hidden />
             Delivering to {info.city}, {info.state}
           </p>
           <DeliverySlots slots={slots} selectedId={slot?.id} onSelect={onSlot} />

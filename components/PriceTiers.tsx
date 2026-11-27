@@ -1,4 +1,4 @@
-import type { Product } from "@/lib/types";
+ import type { Product } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import { rupees } from "@/lib/format";
 import { tierFor, variantMultiplier } from "@/lib/pricing";
@@ -11,9 +11,9 @@ export function PriceTiers({ product, variantIndex, qty, onSelect }: Props) {
   const mult = variantMultiplier(variantIndex);
 
   return (
-    <div>
+    <div className="min-w-0">
       <p className="mb-2 text-sm font-bold">Bulk pricing</p>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {tiers.map((t, i) => {
           const next = tiers[i + 1];
           const range = next ? `${t.min}-${next.min - 1}` : `${t.min}+`;
@@ -26,13 +26,15 @@ export function PriceTiers({ product, variantIndex, qty, onSelect }: Props) {
               aria-pressed={active}
               onClick={() => onSelect(t.min)}
               className={cn(
-                "rounded-xl p-3 text-left ring-1 transition focus-visible:outline-2 focus-visible:outline-brand-600",
+                "min-w-0 rounded-xl p-2.5 text-left ring-1 transition focus-visible:outline-2 focus-visible:outline-brand-600 sm:p-3",
                 active ? "bg-brand-50 ring-2 ring-brand-600" : "bg-white ring-line hover:ring-brand-600"
               )}
             >
-              <span className="block text-xs font-semibold text-muted">{range} units</span>
-              <span className="block text-lg font-extrabold">{rupees(Math.round(t.price * mult))}</span>
-              <span className="block text-xs font-semibold text-green-700">{save > 0 ? `Save ${save}%` : "each"}</span>
+              <span className="block truncate text-[11px] font-semibold text-muted sm:text-xs">{range} units</span>
+              <span className="block text-base font-extrabold sm:text-lg">{rupees(Math.round(t.price * mult))}</span>
+              <span className="block text-[11px] font-semibold text-green-700 sm:text-xs">
+                {save > 0 ? `Save ${save}%` : "each"}
+              </span>
             </button>
           );
         })}
