@@ -69,7 +69,7 @@ export function UploadPreview({ artwork, text, onArtwork, onText }: Props) {
   }
 
   return (
-    <div className="space-y-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line">
+       <div className="min-w-0 space-y-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:p-5">
       <h2 className="flex items-center gap-2 font-bold">
         <ImagePlus className="size-5 text-brand-600" aria-hidden />
         Upload your logo or artwork

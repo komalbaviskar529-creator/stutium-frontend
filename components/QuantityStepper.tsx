@@ -28,9 +28,9 @@ export function QuantityStepper({ value, min, onChange, compact, label = "Quanti
   );
 
   return (
-    <div>
+    <div className="min-w-0">
       {!compact && <p className="mb-2 text-sm font-bold">Quantity</p>}
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <div className="inline-flex overflow-hidden rounded-xl ring-1 ring-line">
           <button type="button" aria-label="Decrease quantity" disabled={value <= min} onClick={() => onChange(clamp(value - 1))} className={btn}>
             <Minus className="size-4" aria-hidden />
@@ -54,7 +54,7 @@ export function QuantityStepper({ value, min, onChange, compact, label = "Quanti
             }}
             className={cn(
               "border-x border-line bg-white text-center text-sm font-bold focus-visible:outline-2 focus-visible:outline-brand-600",
-              compact ? "h-9 w-16" : "w-20"
+              compact ? "h-9 w-16" : "w-16 sm:w-20"
             )}
           />
           <button type="button" aria-label="Increase quantity" disabled={value >= MAX} onClick={() => onChange(clamp(value + 1))} className={btn}>

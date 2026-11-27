@@ -20,8 +20,8 @@ export function Gallery({ name, slug, overlay }: Props) {
   const view = VIEWS[active];
 
   return (
-    <div className="space-y-4">
-      <div className="relative aspect-square w-full overflow-hidden rounded-3xl shadow-md">
+    <div className="min-w-0 space-y-3 sm:space-y-4">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-md sm:aspect-square sm:rounded-3xl">
         <SmartImage
           src={src}
           alt={`${name} - ${view.label}`}
@@ -33,16 +33,16 @@ export function Gallery({ name, slug, overlay }: Props) {
         />
         {overlay}
       </div>
-      <ul className="grid grid-cols-4 gap-3">
+      <ul className="grid grid-cols-4 gap-2 sm:gap-3">
         {VIEWS.map((v, i) => (
-          <li key={v.label}>
+          <li key={v.label} className="min-w-0">
             <button
               type="button"
               aria-label={`Show ${v.label}`}
               aria-pressed={i === active}
               onClick={() => setActive(i)}
               className={cn(
-                "block w-full overflow-hidden rounded-xl ring-2 transition focus-visible:outline-2 focus-visible:outline-brand-600",
+                "block w-full overflow-hidden rounded-lg ring-2 transition focus-visible:outline-2 focus-visible:outline-brand-600 sm:rounded-xl",
                 i === active ? "ring-brand-600" : "ring-transparent hover:ring-line"
               )}
             >
