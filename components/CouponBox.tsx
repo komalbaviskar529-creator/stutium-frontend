@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useState, type FormEvent } from "react";
 import { Tag, X } from "lucide-react";
@@ -19,7 +19,7 @@ export function CouponBox() {
   }
 
   return (
-    <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line">
+    <div className="min-w-0 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:p-5">
       <h2 className="mb-3 flex items-center gap-2 font-bold">
         <Tag className="size-5 text-brand-600" aria-hidden />
         Apply coupon
@@ -43,7 +43,7 @@ export function CouponBox() {
       ) : (
         <>
           <form onSubmit={submit} className="flex items-start gap-2">
-            <div className="flex-1">
+            <div className="min-w-0 flex-1">
               <Input
                 name="coupon"
                 aria-label="Coupon code"
@@ -53,7 +53,7 @@ export function CouponBox() {
                 error={result && !result.ok ? result.message : undefined}
               />
             </div>
-            <Button type="submit" size="lg" className="h-11">
+            <Button type="submit" size="lg" className="h-11 shrink-0 px-4">
               Apply
             </Button>
           </form>

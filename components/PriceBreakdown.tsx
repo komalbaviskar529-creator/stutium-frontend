@@ -4,8 +4,8 @@ import { rupeesExact } from "@/lib/format";
 function Row({ label, value, green }: { label: string; value: string; green?: boolean }) {
   return (
     <div className="flex justify-between gap-4">
-      <dt className="text-muted">{label}</dt>
-      <dd className={green ? "font-semibold text-green-700" : "font-semibold"}>{value}</dd>
+      <dt className="min-w-0 text-muted">{label}</dt>
+      <dd className={green ? "shrink-0 font-semibold text-green-700" : "shrink-0 font-semibold"}>{value}</dd>
     </div>
   );
 }
@@ -23,9 +23,9 @@ export function PriceBreakdown({ totals, coupon }: Props) {
         <Row label="Delivery" value={totals.delivery > 0 ? rupeesExact(totals.delivery) : "Free"} />
         <Row label="GST (18%)" value={rupeesExact(totals.gst)} />
       </dl>
-      <div className="mt-4 flex items-baseline justify-between border-t border-line pt-4">
+      <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-line pt-4">
         <span className="font-bold">Total</span>
-        <span className="text-2xl font-extrabold">{rupeesExact(totals.total)}</span>
+        <span className="text-xl font-extrabold sm:text-2xl">{rupeesExact(totals.total)}</span>
       </div>
       {totals.discount > 0 && (
         <p className="mt-2 text-sm font-semibold text-green-700">You save {rupeesExact(totals.discount)}</p>

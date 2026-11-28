@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -17,37 +17,40 @@ export function CartItemRow({ line }: { line: CartLine }) {
   const extras = ADD_ONS.filter((a) => item.addOns.includes(a.id)).map((a) => a.label);
 
   return (
-    <li className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:gap-6 sm:p-5">
+    <li className="flex gap-3 rounded-2xl bg-white p-3 shadow-sm ring-1 ring-line sm:gap-6 sm:p-5">
       <Link
         href={`/products/${product.slug}`}
-        className="relative size-24 shrink-0 overflow-hidden rounded-xl sm:size-28"
+        className="relative size-20 shrink-0 overflow-hidden rounded-xl sm:size-28"
       >
         <SmartImage src={productImage(product.slug)} alt={product.name} sizes="112px" seed={product.slug} />
       </Link>
 
       <div className="min-w-0 flex-1 space-y-2">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <Link href={`/products/${product.slug}`} className="text-lg font-bold hover:text-brand-700">
+        <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
+          <div className="min-w-0 flex-1">
+            <Link
+              href={`/products/${product.slug}`}
+              className="block break-words text-base font-bold leading-snug hover:text-brand-700 sm:text-lg"
+            >
               {product.name}
             </Link>
-            <p className="text-sm text-muted">
+            <p className="text-xs text-muted sm:text-sm">
               {product.variants[item.variantIndex]} · {rupees(unit)} each
             </p>
           </div>
-          <p className="text-lg font-extrabold">{rupees(total)}</p>
+          <p className="shrink-0 text-base font-extrabold sm:text-lg">{rupees(total)}</p>
         </div>
 
-        {extras.length > 0 && <p className="text-sm text-muted">Add-ons: {extras.join(", ")}</p>}
+        {extras.length > 0 && <p className="break-words text-xs text-muted sm:text-sm">Add-ons: {extras.join(", ")}</p>}
 
         {(item.artwork || item.text) && (
-          <div className="flex items-center gap-3 text-sm text-muted">
+          <div className="flex items-center gap-2 text-xs text-muted sm:gap-3 sm:text-sm">
             {item.artwork && (
-              <span className="relative size-10 shrink-0 overflow-hidden rounded-md bg-surface ring-1 ring-line">
+              <span className="relative size-9 shrink-0 overflow-hidden rounded-md bg-surface ring-1 ring-line sm:size-10">
                 <Image src={item.artwork} alt="Your uploaded logo" fill unoptimized className="object-contain p-0.5" />
               </span>
             )}
-            <span>
+            <span className="min-w-0 break-words">
               {item.artworkName && <span>Logo: {item.artworkName}</span>}
               {item.artworkName && item.text && " · "}
               {item.text && <span>Text: {item.text}</span>}
@@ -55,7 +58,7 @@ export function CartItemRow({ line }: { line: CartLine }) {
           </div>
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <QuantityStepper
             compact
             value={item.qty}
