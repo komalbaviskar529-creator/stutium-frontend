@@ -20,7 +20,7 @@ export function Textarea({ label, error, id, className, ...props }: Props) {
         aria-invalid={!!error}
         aria-describedby={error ? `${fieldId}-error` : undefined}
         className={cn(
-          "rounded-lg border bg-white p-3 text-sm placeholder:text-muted",
+           "w-full min-w-0 rounded-lg border bg-white p-3 text-sm placeholder:text-muted",
           "focus-visible:outline-2 focus-visible:outline-brand-600",
           error ? "border-danger" : "border-line",
           className
