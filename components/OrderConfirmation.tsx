@@ -53,9 +53,8 @@ export function OrderConfirmation({ id }: { id: string }) {
           <p className="font-bold">{order.delivery}</p>
         </div>
       </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-line">
+       <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
+                 <section className="min-w-0 space-y-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:p-6">
           <h2 className="text-lg font-extrabold">Delivery details</h2>
           <address className="space-y-1 text-sm not-italic text-muted">
             <p className="font-semibold text-ink">{a.name}</p>
@@ -78,8 +77,7 @@ export function OrderConfirmation({ id }: { id: string }) {
             </p>
           )}
         </section>
-
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-line">
+         <section className="min-w-0 space-y-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:p-6">
           <h2 className="mb-4 text-lg font-extrabold">Order summary</h2>
           <ul className="mb-4 space-y-3 text-sm">
                          {order.lines.map((l, i) => (

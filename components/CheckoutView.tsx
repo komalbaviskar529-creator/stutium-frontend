@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
@@ -15,7 +15,7 @@ import { getDeliverySlots, lookupPincode, slotText, type Slot } from "@/lib/deli
 import { rupees, rupeesExact } from "@/lib/format";
 import { PAYMENT_LABELS, newOrderId, saveOrder, type Order } from "@/lib/orders";
 import { usePincode } from "@/lib/pincode-context";
- import { ADD_ONS, computeTotals, resolveLines } from "@/lib/pricing";
+import { computeTotals, resolveLines } from "@/lib/pricing";
 import type { AddressValues } from "@/lib/validation";
 
 const PAYMENTS: { id: string; note: string; icon: LucideIcon }[] = [
@@ -24,6 +24,8 @@ const PAYMENTS: { id: string; note: string; icon: LucideIcon }[] = [
   { id: "netbanking", note: "All major banks", icon: Landmark },
   { id: "cod", note: "Pay when your order arrives", icon: Banknote },
 ];
+
+const section = "min-w-0 space-y-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:space-y-5 sm:p-6";
 
 export function CheckoutView() {
   const router = useRouter();
@@ -66,7 +68,6 @@ export function CheckoutView() {
         qty: l.item.qty,
         unit: l.unit,
         total: l.total,
-                extras: ADD_ONS.filter((a) => l.item.addOns.includes(a.id)).map((a) => a.label).join(", "),
       })),
       totals,
       coupon,
@@ -90,7 +91,7 @@ export function CheckoutView() {
 
   if (lines.length === 0) {
     return (
-      <div className="rounded-2xl bg-white p-12 text-center shadow-sm ring-1 ring-line">
+      <div className="rounded-2xl bg-white p-8 text-center shadow-sm ring-1 ring-line sm:p-12">
         <span className="mx-auto flex size-16 items-center justify-center rounded-full bg-brand-50 text-brand-700">
           <ShoppingBag className="size-8" aria-hidden />
         </span>
@@ -106,30 +107,57 @@ export function CheckoutView() {
     );
   }
 
+  const summary = (
+    <>
+      <ul className="mb-4 space-y-3 text-sm">
+        {lines.map((l) => (
+          <li key={l.item.id} className="flex justify-between gap-3">
+            <span className="min-w-0 break-words">
+              {l.product.name} <span className="text-muted">× {l.item.qty}</span>
+            </span>
+            <span className="shrink-0 font-semibold">{rupees(l.total)}</span>
+          </li>
+        ))}
+      </ul>
+      <PriceBreakdown totals={totals} coupon={coupon} />
+      <Link href="/cart" className="mt-4 inline-block text-sm font-semibold text-brand-700 hover:underline">
+        Edit cart
+      </Link>
+    </>
+  );
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-5 sm:space-y-8">
       <h1 className="sr-only">Checkout</h1>
       <CheckoutProgress step={step} />
 
-      <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
-        <div>
+      <details className="rounded-2xl bg-white shadow-sm ring-1 ring-line lg:hidden">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-4 font-semibold">
+          <span>Order summary</span>
+          <span className="font-extrabold">{rupeesExact(totals.total)}</span>
+        </summary>
+        <div className="border-t border-line p-4">{summary}</div>
+      </details>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-8">
+        <div className="min-w-0">
           {step === 1 && <AddressForm defaultValues={address ?? blank} onSubmit={onAddress} />}
 
           {step === 2 && (
-            <section className="space-y-5 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-line">
-              <h2 className="text-xl font-extrabold">Choose your delivery date</h2>
+            <section className={section}>
+              <h2 className="text-lg font-extrabold sm:text-xl">Choose your delivery date</h2>
               {info && (
                 <p className="text-sm text-muted">
                   Delivering to {info.city}, {info.state}. Express delivery costs {rupees(149)} extra.
                 </p>
               )}
               <DeliverySlots slots={slots} selectedId={slot?.id} onSelect={setSlot} />
-              <div className="flex flex-wrap gap-3">
-                <Button type="button" variant="secondary" size="lg" onClick={() => setStep(1)} className="gap-2">
+              <div className="flex flex-col-reverse gap-3 sm:flex-row">
+                <Button type="button" variant="secondary" size="lg" onClick={() => setStep(1)} className="w-full gap-2 sm:w-auto">
                   <ArrowLeft className="size-4" aria-hidden />
                   Back
                 </Button>
-                <Button type="button" size="lg" disabled={!slot} onClick={() => setStep(3)}>
+                <Button type="button" size="lg" disabled={!slot} onClick={() => setStep(3)} className="w-full sm:w-auto">
                   Continue to payment
                 </Button>
               </div>
@@ -137,8 +165,8 @@ export function CheckoutView() {
           )}
 
           {step === 3 && (
-            <section className="space-y-5 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-line">
-              <h2 className="text-xl font-extrabold">Payment method</h2>
+            <section className={section}>
+              <h2 className="text-lg font-extrabold sm:text-xl">Payment method</h2>
               <fieldset className="space-y-3">
                 <legend className="sr-only">Payment method</legend>
                 {PAYMENTS.map((p) => {
@@ -148,7 +176,7 @@ export function CheckoutView() {
                     <label
                       key={p.id}
                       className={cn(
-                        "flex cursor-pointer items-center gap-4 rounded-xl p-4 ring-1 transition",
+                        "flex cursor-pointer items-center gap-3 rounded-xl p-3 ring-1 transition sm:gap-4 sm:p-4",
                         on ? "bg-brand-50 ring-2 ring-brand-600" : "bg-white ring-line hover:ring-brand-600"
                       )}
                     >
@@ -158,10 +186,10 @@ export function CheckoutView() {
                         value={p.id}
                         checked={on}
                         onChange={() => setPayment(p.id)}
-                        className="size-4 accent-brand-600"
+                        className="size-4 shrink-0 accent-brand-600"
                       />
-                      <Icon className="size-6 text-brand-600" aria-hidden />
-                      <span>
+                      <Icon className="size-6 shrink-0 text-brand-600" aria-hidden />
+                      <span className="min-w-0">
                         <span className="block font-bold">{PAYMENT_LABELS[p.id]}</span>
                         <span className="block text-sm text-muted">{p.note}</span>
                       </span>
@@ -170,12 +198,12 @@ export function CheckoutView() {
                 })}
               </fieldset>
               <p className="text-xs text-muted">This is a demo store. No real payment is taken.</p>
-              <div className="flex flex-wrap gap-3">
-                <Button type="button" variant="secondary" size="lg" onClick={() => setStep(2)} className="gap-2">
+              <div className="flex flex-col-reverse gap-3 sm:flex-row">
+                <Button type="button" variant="secondary" size="lg" onClick={() => setStep(2)} className="w-full gap-2 sm:w-auto">
                   <ArrowLeft className="size-4" aria-hidden />
                   Back
                 </Button>
-                <Button type="button" size="lg" onClick={pay}>
+                <Button type="button" size="lg" onClick={pay} className="w-full sm:w-auto">
                   {payment === "cod" ? "Place order" : `Pay ${rupeesExact(totals.total)}`}
                 </Button>
               </div>
@@ -183,22 +211,9 @@ export function CheckoutView() {
           )}
         </div>
 
-        <aside className="self-start rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line lg:sticky lg:top-28">
+        <aside className="hidden min-w-0 self-start rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line lg:sticky lg:top-28 lg:block">
           <h2 className="mb-4 text-lg font-extrabold">Order summary</h2>
-          <ul className="mb-4 space-y-3 text-sm">
-            {lines.map((l) => (
-              <li key={l.item.id} className="flex justify-between gap-3">
-                <span>
-                  {l.product.name} <span className="text-muted">× {l.item.qty}</span>
-                </span>
-                <span className="font-semibold">{rupees(l.total)}</span>
-              </li>
-            ))}
-          </ul>
-          <PriceBreakdown totals={totals} coupon={coupon} />
-          <Link href="/cart" className="mt-4 inline-block text-sm font-semibold text-brand-700 hover:underline">
-            Edit cart
-          </Link>
+          {summary}
         </aside>
       </div>
     </div>

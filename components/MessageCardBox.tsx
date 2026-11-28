@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { Gift } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
@@ -9,15 +9,15 @@ export function MessageCardBox() {
   const { note, setNote } = useCart();
 
   return (
-    <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-line">
-      <label className="flex cursor-pointer items-center gap-3 font-bold">
+    <section className="min-w-0 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:p-5">
+      <label className="flex cursor-pointer items-center gap-3 text-sm font-bold sm:text-base">
         <input
           type="checkbox"
           checked={note !== null}
           onChange={(e) => setNote(e.target.checked ? "" : null)}
-          className="size-4 accent-brand-600"
+          className="size-4 shrink-0 accent-brand-600"
         />
-        <Gift className="size-5 text-brand-600" aria-hidden />
+        <Gift className="size-5 shrink-0 text-brand-600" aria-hidden />
         Add a free message card
       </label>
       {note !== null && (
