@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -33,10 +33,14 @@ export function AddressForm({ defaultValues, onSubmit }: Props) {
   }, [pincode, getValues, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-line">
-      <h2 className="text-xl font-extrabold">Delivery address</h2>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="min-w-0 space-y-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-line sm:space-y-5 sm:p-6"
+    >
+      <h2 className="text-lg font-extrabold sm:text-xl">Delivery address</h2>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input label="Full name" autoComplete="name" placeholder="Enter your full name" error={errors.name?.message} {...register("name")} />
         <Input
           label="Phone number"
@@ -74,7 +78,7 @@ export function AddressForm({ defaultValues, onSubmit }: Props) {
         {...register("address")}
       />
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
           label="Pincode"
           inputMode="numeric"
